@@ -1,0 +1,42 @@
+{
+    "name": "tulatulan/phpformstep",
+    "description": "Professional multi-step form library for PHP with advanced configuration, validation, and state management",
+    "type": "library",
+    "version": "1.0.0",
+    "keywords": ["php", "form", "multi-step", "validation", "session", "wizard", "stepper", "workflow"],
+    "homepage": "https://github.com/tulatulan/phpFormStep",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "tulatulan",
+            "email": "tulatulan@users.noreply.github.com",
+            "homepage": "https://github.com/tulatulan"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/tulatulan/phpFormStep/issues",
+        "source": "https://github.com/tulatulan/phpFormStep"
+    },
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "phpFormStep\\": "src/"
+        },
+        "files": ["bootstrap.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "phpFormStep\\Tests\\": "test/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
+}
