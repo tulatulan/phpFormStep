@@ -14,25 +14,25 @@ if (!defined('PHPFORMSTEP_LOADED') && php_sapi_name() !== 'cli') {
 
 class FormStepConfig {
     
-    public array $steps = [];
-    public string $initStep = '';
-    public array $requiredSaveSteps = [];
-    public bool $allowNavigation = true;
-    public array $stepFiles = [];
-    public array $stepHandlers = [];
-    public string $mode = 'create'; // 'create' or 'edit'
-    public array $validationRules = [];
-    public string $sessionPrefix = 'form_step_';
-    public ?int $primaryKeyValue = null;
+    public $steps = [];
+    public $initStep = '';
+    public $requiredSaveSteps = [];
+    public $allowNavigation = true;
+    public $stepFiles = [];
+    public $stepHandlers = [];
+    public $mode = 'create'; // 'create' or 'edit'
+    public $validationRules = [];
+    public $sessionPrefix = 'form_step_';
+    public $primaryKeyValue = null;
     
     // Additional properties for backward compatibility
-    public int $totalSteps = 0;
-    public string $tableName = '';
+    public $totalSteps = 0;
+    public $tableName = '';
     
     /**
      * Constructor
      */
-    public function __construct(array $config = []) {
+    public function __construct($config = []) {
         // Set defaults
         $this->steps = $config['steps'] ?? [];
         $this->initStep = $config['initStep'] ?? ($this->steps[0] ?? '');

@@ -14,20 +14,20 @@ if (!defined('PHPFORMSTEP_LOADED') && php_sapi_name() !== 'cli') {
 
 class FormStepValidator {
     
-    private array $rules = [];
-    private array $errors = [];
+    private $rules = [];
+    private $errors = [];
     
     /**
      * Set validation rules for a step
      */
-    public function setRules(string $step, array $rules): void {
+    public function setRules($step, $rules) {
         $this->rules[$step] = $rules;
     }
     
     /**
      * Validate step data
      */
-    public function validate(string $step, array $data): bool {
+    public function validate($step, $data) {
         $this->errors = [];
         
         if (!isset($this->rules[$step])) {

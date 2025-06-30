@@ -14,16 +14,16 @@ if (!defined('PHPFORMSTEP_LOADED') && php_sapi_name() !== 'cli') {
 
 class FormStepManager {
     
-    private FormStepConfig $config;
-    private FormStepState $state;
-    private FormStepValidator $validator;
-    private array $errors = [];
-    private bool $isProcessed = false;
+    private $config;
+    private $state;
+    private $validator;
+    private $errors = [];
+    private $isProcessed = false;
     
     /**
      * Constructor
      */
-    public function __construct(FormStepConfig $config, string $formId = 'default') {
+    public function __construct($config, $formId = 'default') {
         $this->config = $config;
         $this->state = new FormStepState($config->sessionPrefix, $formId);
         $this->validator = new FormStepValidator();
@@ -36,11 +36,6 @@ class FormStepManager {
         // Handle edit mode initialization
         if ($config->mode === 'edit' && $config->primaryKeyValue !== null) {
             $this->initializeEditMode();
-        }
-        
-        // Process form if POST request
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->processForm();
         }
     }
     
@@ -287,7 +282,7 @@ class FormStepManager {
     /**
      * Get current step
      */
-    public function getCurrentStep(): string {
+    public function getCurrentStep() {
         $currentStep = $this->state->getCurrentStep();
         
         // Initialize to first step if empty

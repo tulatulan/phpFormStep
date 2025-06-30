@@ -38,8 +38,8 @@ const PHPFORMSTEP_NAME = 'phpFormStep';
 const PHPFORMSTEP_DESCRIPTION = 'Professional multi-step form library for PHP';
 
 // Check PHP version
-if (version_compare(PHP_VERSION, '8.0.0', '<')) {
-    throw new Exception('phpFormStep requires PHP 8.0 or higher. Current version: ' . PHP_VERSION);
+if (version_compare(PHP_VERSION, '7.4.0', '<')) {
+    throw new Exception('phpFormStep requires PHP 7.4 or higher. Current version: ' . PHP_VERSION);
 }
 
 // Load autoloader

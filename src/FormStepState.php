@@ -14,13 +14,13 @@ if (!defined('PHPFORMSTEP_LOADED') && php_sapi_name() !== 'cli') {
 
 class FormStepState {
     
-    private string $sessionKey;
-    private array $state;
+    private $sessionKey;
+    private $state;
     
     /**
      * Constructor
      */
-    public function __construct(string $sessionPrefix = 'form_step_', string $formId = 'default') {
+    public function __construct($sessionPrefix = 'form_step_', $formId = 'default') {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
