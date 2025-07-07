@@ -368,14 +368,8 @@ window.FormStep = (function() {
                 return;
             }
             
-            // Custom validation
-            if (buttonNext.validate) {
-                const result = buttonNext.validate();
-                if (result !== true) {
-                    showNotification(result || 'Validation failed', 'error');
-                    return;
-                }
-            }
+            // Note: PHP validation functions are handled server-side
+            // Client-side validation should be implemented separately if needed
             
             submitForm('next');
         },

@@ -531,11 +531,33 @@ class phpFormStep {
      * Get JavaScript configuration
      */
     public function getJavaScriptConfig() {
+        // Prepare steps config for JavaScript (remove PHP functions)
+        $jsSteps = [];
+        foreach ($this->steps as $stepNum => $stepConfig) {
+            $jsSteps[$stepNum] = [
+                'title' => $stepConfig['title'] ?? '',
+                'buttonNext' => [
+                    'label' => $stepConfig['buttonNext']['label'] ?? 'Next',
+                    'submitBeforeContinue' => $stepConfig['buttonNext']['submitBeforeContinue'] ?? false,
+                    'required' => $stepConfig['buttonNext']['required'] ?? false,
+                    // Note: PHP validation functions are not included in JS config
+                ],
+                'buttonPrev' => [
+                    'label' => $stepConfig['buttonPrev']['label'] ?? 'Previous',
+                    'clearInput' => $stepConfig['buttonPrev']['clearInput'] ?? false
+                ],
+                'handleSubmit' => [
+                    'URLhandle' => $stepConfig['handleSubmit']['URLhandle'] ?? '',
+                    'inputKeyForForm' => $stepConfig['handleSubmit']['inputKeyForForm'] ?? ''
+                ]
+            ];
+        }
+        
         return json_encode([
             'currentStep' => $this->currentStep,
             'totalSteps' => $this->totalSteps,
             'mode' => $this->mode,
-            'steps' => $this->steps,
+            'steps' => $jsSteps,
             'sessionPrefix' => $this->sessionPrefix
         ]);
     }
