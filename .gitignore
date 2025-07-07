@@ -1,12 +1,41 @@
-# Composer
-/vendor/
-composer.lock
+# phpFormStep v2.0 - Ignore files
+
+# Logs
+examples/handlers/logs/
+*.log
+
+# Cache
+cache/
+tmp/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Test files
+test/
+tests/
+
+# Node modules (if using build tools)
+node_modules/
+
+# Composer
+vendor/
+composer.lock
+
+# Local configuration
+config.local.php
+.env.local
 
 # OS
 .DS_Store
@@ -21,7 +50,6 @@ Thumbs.db
 
 # Build artifacts
 /build/
-/dist/
 
 # Test coverage
 /coverage/

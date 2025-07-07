@@ -1,0 +1,361 @@
+/* phpFormStep - Professional CSS Styles */
+
+.formstep-progress {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.formstep-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.formstep-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: progress-shimmer 2s infinite;
+}
+
+@keyframes progress-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.formstep-progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: 600;
+    color: #495057;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.formstep-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    min-height: 300px;
+}
+
+.formstep-title {
+    color: #212529;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.formstep-errors {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+}
+
+.formstep-error {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.formstep-error:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.formstep-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-radius: 0 0 8px 8px;
+    margin-top: 0;
+}
+
+.formstep-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.formstep-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.formstep-btn:active {
+    transform: translateY(0);
+}
+
+.formstep-btn-prev {
+    background: #6c757d;
+    color: white;
+}
+
+.formstep-btn-prev:hover {
+    background: #5a6268;
+}
+
+.formstep-btn-next {
+    background: #007bff;
+    color: white;
+}
+
+.formstep-btn-next:hover {
+    background: #0056b3;
+}
+
+.formstep-btn-submit {
+    background: #28a745;
+    color: white;
+}
+
+.formstep-btn-submit:hover {
+    background: #218838;
+}
+
+.formstep-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.formstep-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Form Elements Styling */
+.formstep-form-group {
+    margin-bottom: 20px;
+}
+
+.formstep-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #495057;
+    font-size: 14px;
+}
+
+.formstep-input,
+.formstep-textarea,
+.formstep-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    background: white;
+}
+
+.formstep-input:focus,
+.formstep-textarea:focus,
+.formstep-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+}
+
+.formstep-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.formstep-checkbox,
+.formstep-radio {
+    margin-right: 8px;
+}
+
+.formstep-checkbox-label,
+.formstep-radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+/* Loading States */
+.formstep-loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.formstep-loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.formstep-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 3px solid #e9ecef;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: formstep-spin 1s linear infinite;
+    z-index: 1001;
+}
+
+@keyframes formstep-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Debug Information */
+.formstep-debug {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.formstep-debug h4 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.formstep-debug p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.formstep-debug pre {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    overflow-x: auto;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .formstep-content {
+        padding: 20px;
+    }
+    
+    .formstep-navigation {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .formstep-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .formstep-title {
+        font-size: 20px;
+    }
+}
+
+/* Animation Effects */
+.formstep-fade-in {
+    animation: formstep-fade-in 0.3s ease;
+}
+
+@keyframes formstep-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.formstep-slide-in {
+    animation: formstep-slide-in 0.3s ease;
+}
+
+@keyframes formstep-slide-in {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Success and Error States */
+.formstep-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #c3e6cb;
+    margin-bottom: 20px;
+}
+
+.formstep-warning {
+    background: #fff3cd;
+    color: #856404;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #ffeaa7;
+    margin-bottom: 20px;
+}
+
+/* Custom Scrollbar */
+.formstep-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.formstep-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.formstep-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.formstep-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

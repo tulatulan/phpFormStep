@@ -1,44 +1,54 @@
 # Changelog
 
-All notable changes to the phpFormStep library will be documented in this file.
+All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [2.0.0] - 2025-07-07
+
+### 🚀 Major Release - Complete Rewrite
+
+#### Added
+- **New Architecture**: Complete rewrite with professional structure
+- **Pure JavaScript**: No dependency on jQuery or Bootstrap
+- **Single File Include**: Just include `dist/phpFormStep.php` to use
+- **Professional Configuration**: Flexible array-based configuration
+- **Validation System**: Built-in validation with custom functions
+- **Handler System**: Separate handlers for each step
+- **Create/Edit Mode**: Support for both create and edit modes
+- **Progress Bar**: Beautiful animated progress indicator
+- **Responsive Design**: Mobile-first responsive interface
+- **Debug Mode**: Development-friendly debugging tools
+- **Session Management**: Secure session-based data storage
+- **Error Handling**: Professional error handling and display
+- **Navigation**: Smooth navigation between steps
+- **Auto-save**: Automatic data saving as user types
+
+#### Changed
+- **Breaking Change**: Complete API redesign
+- **File Structure**: New dist/ folder structure
+- **Configuration**: New array-based configuration system
+- **UI/UX**: Modern, professional interface design
+
+#### Removed
+- **Old Architecture**: Removed all v1.x code
+- **Bootstrap Dependency**: No longer requires Bootstrap
+- **jQuery Dependency**: No longer requires jQuery
+- **Old Configuration**: Removed old configuration methods
+
+#### Technical Details
+- **PHP Version**: Requires PHP 7.4+
+- **Browser Support**: Modern browsers (ES6+)
+- **File Size**: Optimized for performance
+- **Security**: Enhanced security features
+
+### Migration Guide
+This is a major version with breaking changes. Please refer to the new README.md for updated usage instructions.
+
+---
 
 ## [1.0.0] - 2025-06-29
 
-### Added
-- Initial release of phpFormStep library
-- Professional multi-step form management with advanced configuration
-- Session-based state management with persistence across requests
-- Laravel-style validation engine with comprehensive rule support
-- Flexible step file and handler mapping system
-- Support for create/edit modes with primary key tracking
-- Navigation control with required save steps
-- Autoloader and Composer support
-- Library protection against direct access
-- Comprehensive documentation and examples
-
-### Features
-- **FormStepConfig**: Advanced configuration management
-- **FormStepState**: Session-based state persistence  
-- **FormStepValidator**: Laravel-style validation rules
-- **FormStepManager**: Main orchestrator and controller
-- **Bootstrap system**: Professional library loading
-- **Protection layer**: Prevents unauthorized access and modifications
-
-### Validation Rules
-- `required` - Field must have a value
-- `email` - Must be valid email address
-- `numeric` - Must be numeric value
-- `url` - Must be valid URL
-- `min:n` - Minimum character length
-- `max:n` - Maximum character length
-- `min_value:n` - Minimum numeric value
-- `max_value:n` - Maximum numeric value
-
-### Compatibility
-- PHP 8.0+ required
-- Session support required
-- Framework agnostic design
-- PSR-4 autoloading compliant
+### Initial Release
+- Basic multi-step form functionality
+- Bootstrap-based UI
+- Session management
+- Basic validation

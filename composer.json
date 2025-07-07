@@ -1,42 +1,32 @@
 {
     "name": "tulatulan/phpformstep",
-    "description": "Professional multi-step form library for PHP with advanced configuration, validation, and state management",
+    "description": "Professional multi-step form library for PHP - Pure JavaScript & CSS",
     "type": "library",
-    "version": "1.0.0",
-    "keywords": ["php", "form", "multi-step", "validation", "session", "wizard", "stepper", "workflow"],
+    "keywords": ["php", "form", "multi-step", "wizard", "validation", "javascript"],
     "homepage": "https://github.com/tulatulan/phpFormStep",
     "license": "MIT",
+    "version": "2.0.0",
     "authors": [
         {
-            "name": "tulatulan",
-            "email": "tulatulan@users.noreply.github.com",
-            "homepage": "https://github.com/tulatulan"
+            "name": "ChatFree Team",
+            "email": "support@chatfree.com"
         }
     ],
-    "support": {
-        "issues": "https://github.com/tulatulan/phpFormStep/issues",
-        "source": "https://github.com/tulatulan/phpFormStep"
-    },
     "require": {
-        "php": ">=8.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.0"
+        "php": ">=7.4.0"
     },
     "autoload": {
         "psr-4": {
-            "phpFormStep\\": "src/"
-        },
-        "files": ["bootstrap.php"]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "phpFormStep\\Tests\\": "test/"
+            "phpFormStep\\": "dist/"
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-    "config": {
-        "sort-packages": true
+    "support": {
+        "issues": "https://github.com/tulatulan/phpFormStep/issues",
+        "docs": "https://github.com/tulatulan/phpFormStep/blob/main/README.md"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "2.0.x-dev"
+        }
     }
 }
