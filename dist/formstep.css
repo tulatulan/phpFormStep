@@ -1,0 +1,386 @@
+/**
+ * phpFormStep - Core CSS Styles
+ * 
+ * Essential styles for the form step functionality.
+ * This CSS provides the basic structure and layout.
+ * 
+ * @version 2.0.0
+ * @author ChatFree Team
+ * @license MIT
+ */
+
+/* Core Progress Bar */
+.formstep-progress {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.formstep-progress-bar {
+    height: 100%;
+    background: #007bff;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.formstep-progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: 600;
+    color: #495057;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+/* Navigation Steps */
+.formstep-nav-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.formstep-nav-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #6c757d;
+    min-width: 80px;
+}
+
+.formstep-nav-step:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    transform: translateY(-2px);
+}
+
+.formstep-nav-step.active {
+    background: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    cursor: default;
+}
+
+.formstep-nav-step.completed {
+    background: #28a745;
+    border-color: #28a745;
+    color: #ffffff;
+}
+
+.formstep-nav-step.disabled {
+    background: #f8f9fa;
+    border-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.formstep-nav-step-number {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.formstep-check-icon {
+    font-size: 20px;
+    font-weight: 900;
+    color: inherit;
+}
+
+.formstep-nav-step-title {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Content Area */
+.formstep-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    min-height: 300px;
+}
+
+.formstep-title {
+    color: #212529;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+/* Error Messages */
+.formstep-errors {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+}
+
+.formstep-error {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.formstep-field-error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Navigation Buttons */
+.formstep-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-radius: 0 0 8px 8px;
+    margin-top: 0;
+}
+
+.formstep-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+}
+
+.formstep-btn-prev {
+    background: #6c757d;
+    color: #ffffff;
+}
+
+.formstep-btn-prev:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+.formstep-btn-next {
+    background: #007bff;
+    color: #ffffff;
+}
+
+.formstep-btn-next:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.formstep-btn-submit {
+    background: #28a745;
+    color: #ffffff;
+}
+
+.formstep-btn-submit:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+/* Form Elements */
+.formstep-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.formstep-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+}
+
+.formstep-input.formstep-error {
+    border-color: #dc3545;
+}
+
+/* Loading Spinner */
+.formstep-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.formstep-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Notifications */
+.formstep-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.formstep-notification.show {
+    transform: translateX(0);
+}
+
+.formstep-notification-info {
+    background: #007bff;
+}
+
+.formstep-notification-success {
+    background: #28a745;
+}
+
+.formstep-notification-error {
+    background: #dc3545;
+}
+
+.formstep-notification-warning {
+    background: #ffc107;
+    color: #212529;
+}
+
+/* Debug Info */
+.formstep-debug {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.formstep-debug h4 {
+    margin-top: 0;
+    color: #495057;
+}
+
+.formstep-debug pre {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .formstep-nav-steps {
+        gap: 5px;
+    }
+    
+    .formstep-nav-step {
+        min-width: 60px;
+        padding: 8px 10px;
+    }
+    
+    .formstep-nav-step-number {
+        font-size: 16px;
+    }
+    
+    .formstep-nav-step-title {
+        font-size: 10px;
+    }
+    
+    .formstep-content {
+        padding: 20px;
+    }
+    
+    .formstep-navigation {
+        padding: 15px 20px;
+    }
+    
+    .formstep-btn {
+        min-width: 100px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .formstep-nav-steps {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .formstep-nav-step {
+        flex-direction: row;
+        min-width: 200px;
+        text-align: left;
+    }
+    
+    .formstep-nav-step-number {
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+    
+    .formstep-nav-step-title {
+        text-align: left;
+    }
+    
+    .formstep-content {
+        padding: 15px;
+    }
+    
+    .formstep-navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .formstep-btn {
+        width: 100%;
+    }
+}

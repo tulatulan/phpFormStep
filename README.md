@@ -5,7 +5,43 @@
 phpFormStep v2.0 là thư viện PHP chuyên nghiệp để tạo form nhiều bước với các tính năng:
 
 - ✅ **Thuần JavaScript + CSS** - Không phụ thuộc jQuery hay Bootstrap
-- ✅ **Dễ sử dụng** - Chỉ cần include 1 file chính
+- ✅ *## 📁 Cấu trúc Project
+
+```
+phpFormStep-standalone/
+├── dist/
+│   ├── phpFormStep.php          # Library core (PHP)
+│   ├── formstep.css             # Core CSS (Required)
+│   └── formstep.js              # Core JavaScript (Required)
+├── examples/
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── formstep.css     # Enhanced CSS (Optional styling)
+│   │   └── js/
+│   │       └── formstep.js      # Enhanced JavaScript (Optional features)
+│   ├── handlers/                # Handler examples
+│   ├── views/                   # View examples
+│   ├── demo-v2.php             # Create Mode Demo
+│   └── demo-edit.php           # Edit Mode Demo
+├── composer.json
+├── README.md
+└── LICENSE
+```
+
+**Cấu trúc thư viện:**
+- **`dist/`** chứa library core và CSS/JS cần thiết cho hoạt động
+- **`examples/assets/`** chứa CSS/JS mở rộng cho styling và tính năng bổ sung
+- **`examples/`** chứa demo Create Mode và Edit Mode
+
+## 📞 Hỗ trợ
+
+- **Email**: support@example.com
+- **Documentation**: [Link docs]
+- **Issues**: [Github Issues]
+
+## 📄 License
+
+MIT License - Sử dụng tự do cho mọi dự án.cần include 1 file chính
 - ✅ **Linh hoạt** - Hỗ trợ Create Mode và Edit Mode
 - ✅ **Validation mạnh mẽ** - Validation tùy chỉnh cho từng step
 - ✅ **Handler riêng biệt** - Xử lý dữ liệu độc lập cho từng step
@@ -15,34 +51,38 @@ phpFormStep v2.0 là thư viện PHP chuyên nghiệp để tạo form nhiều b
 ## 📦 Cài đặt
 
 ```bash
-# Copy file chính vào project của bạn
+# Copy library core vào project của bạn
 cp dist/phpFormStep.php your-project/
+cp dist/formstep.css your-project/
+cp dist/formstep.js your-project/
 
-# Tùy chọn: Copy CSS/JS mẫu từ examples (hoặc tạo CSS/JS riêng)
+# Tùy chọn: Copy enhanced CSS/JS từ examples để có styling đẹp hơn
 cp examples/assets/css/formstep.css your-project/
 cp examples/assets/js/formstep.js your-project/
 ```
 
 ## 🔧 Cách sử dụng cơ bản
 
-### 1. Include thư viện (chỉ PHP)
+### 1. Include thư viện
 
 ```php
 <?php
 require_once 'phpFormStep.php';
 ```
 
-### 2. Include CSS/JS (tùy chọn)
+### 2. Include CSS/JS
 
 ```html
-<!-- Sử dụng CSS mẫu hoặc tạo CSS riêng -->
+<!-- Core CSS/JS (Required) -->
 <link rel="stylesheet" href="formstep.css">
-
-<!-- JavaScript cơ bản -->
 <script>
     var FormStepConfig = <?= $formStep->getJavaScriptConfig() ?>;
 </script>
 <script src="formstep.js"></script>
+
+<!-- Enhanced CSS/JS (Optional) -->
+<link rel="stylesheet" href="enhanced-formstep.css">
+<script src="enhanced-formstep.js"></script>
 ```
 
 ### 2. Cấu hình form

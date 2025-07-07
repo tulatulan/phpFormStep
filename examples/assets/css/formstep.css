@@ -48,6 +48,130 @@
     white-space: nowrap;
 }
 
+/* Navigation Steps */
+.formstep-nav-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.formstep-nav-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #6c757d;
+    min-width: 80px;
+}
+
+.formstep-nav-step:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    transform: translateY(-2px);
+}
+
+.formstep-nav-step.active {
+    background: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    cursor: default;
+}
+
+.formstep-nav-step.completed {
+    background: #28a745;
+    border-color: #28a745;
+    color: #ffffff;
+}
+
+.formstep-nav-step.completed:hover {
+    background: #218838;
+    border-color: #1e7e34;
+}
+
+.formstep-nav-step.disabled {
+    background: #f8f9fa;
+    border-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.formstep-nav-step.disabled:hover {
+    background: #f8f9fa;
+    border-color: #e9ecef;
+    transform: none;
+}
+
+.formstep-nav-step-number {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.formstep-check-icon {
+    font-size: 20px;
+    font-weight: 900;
+    color: inherit;
+}
+
+.formstep-nav-step-title {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .formstep-nav-steps {
+        gap: 5px;
+    }
+    
+    .formstep-nav-step {
+        min-width: 60px;
+        padding: 8px 10px;
+    }
+    
+    .formstep-nav-step-number {
+        font-size: 16px;
+    }
+    
+    .formstep-nav-step-title {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .formstep-nav-steps {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .formstep-nav-step {
+        flex-direction: row;
+        min-width: 200px;
+        text-align: left;
+    }
+    
+    .formstep-nav-step-number {
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+    
+    .formstep-nav-step-title {
+        text-align: left;
+    }
+}
+
 .formstep-content {
     background: #ffffff;
     padding: 30px;

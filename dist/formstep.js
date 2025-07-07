@@ -1,97 +1,72 @@
 /**
- * phpFormStep - Professional JavaScript Functions
+ * phpFormStep - Core JavaScript Library
  * 
- * Handles form navigation, validation, and AJAX submissions
+ * Core functionality for form step navigation and processing.
+ * This is the essential JavaScript that works with the PHP library.
+ * 
+ * @version 2.0.0
+ * @author ChatFree Team
+ * @license MIT
  */
 
 window.FormStep = (function() {
     'use strict';
     
-    // Private variables
-    let config = window.FormStepConfig || {};
+    let config = {};
     let isProcessing = false;
     let validationCallbacks = {};
     
-    // Initialize
+    // Initialize the form step
     function init() {
-        setupEventListeners();
-        setupFormValidation();
-        addAnimations();
-        
-        // Auto-save feature
-        if (config.autoSave) {
-            setupAutoSave();
+        // Get configuration from window
+        if (window.FormStepConfig) {
+            config = window.FormStepConfig;
         }
+        
+        // Setup event listeners
+        setupEventListeners();
+        
+        // Setup auto-save
+        setupAutoSave();
+        
+        // Load saved data
+        loadStepData();
+        
+        console.log('FormStep initialized with config:', config);
     }
     
     // Setup event listeners
     function setupEventListeners() {
-        document.addEventListener('DOMContentLoaded', function() {
-            // Form submission prevention
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    return false;
-                });
-            });
-            
-            // Input validation on change
-            const inputs = document.querySelectorAll('input, textarea, select');
-            inputs.forEach(input => {
-                input.addEventListener('change', function() {
-                    validateField(this);
-                });
-                
-                input.addEventListener('blur', function() {
-                    validateField(this);
-                });
-            });
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey || e.metaKey) {
-                    switch(e.key) {
-                        case 'ArrowRight':
-                            e.preventDefault();
-                            next();
-                            break;
-                        case 'ArrowLeft':
-                            e.preventDefault();
-                            prev();
-                            break;
-                        case 'Enter':
-                            if (e.shiftKey) {
-                                e.preventDefault();
-                                submit();
-                            }
-                            break;
-                    }
-                }
-            });
+        // Form submit prevention
+        document.addEventListener('submit', function(e) {
+            const form = e.target;
+            if (form.classList.contains('formstep-form')) {
+                e.preventDefault();
+            }
         });
-    }
-    
-    // Setup form validation
-    function setupFormValidation() {
-        // Add validation classes
-        const inputs = document.querySelectorAll('input, textarea, select');
-        inputs.forEach(input => {
-            if (input.hasAttribute('required')) {
-                input.classList.add('formstep-required');
+        
+        // Input validation
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('input, textarea, select')) {
+                validateField(e.target);
+            }
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prev();
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    next();
+                }
             }
         });
     }
     
-    // Add animations
-    function addAnimations() {
-        const content = document.querySelector('.formstep-content');
-        if (content) {
-            content.classList.add('formstep-fade-in');
-        }
-    }
-    
-    // Validate individual field
+    // Validate field
     function validateField(field) {
         const fieldName = field.name;
         const fieldValue = field.value;
@@ -149,16 +124,18 @@ window.FormStep = (function() {
         const errorElement = document.createElement('div');
         errorElement.className = 'formstep-field-error';
         errorElement.textContent = message;
-        errorElement.style.color = '#dc3545';
-        errorElement.style.fontSize = '12px';
-        errorElement.style.marginTop = '5px';
         
-        field.parentNode.insertBefore(errorElement, field.nextSibling);
+        const parent = field.parentElement;
+        parent.appendChild(errorElement);
+        
+        // Position error element
+        errorElement.style.display = 'block';
     }
     
     // Remove field error
     function removeFieldError(field) {
-        const errorElement = field.parentNode.querySelector('.formstep-field-error');
+        const parent = field.parentElement;
+        const errorElement = parent.querySelector('.formstep-field-error');
         if (errorElement) {
             errorElement.remove();
         }
@@ -201,7 +178,7 @@ window.FormStep = (function() {
         };
     }
     
-    // Save step data
+    // Save step data to localStorage
     function saveStepData() {
         const formData = new FormData();
         const inputs = document.querySelectorAll('input, textarea, select');
@@ -216,98 +193,35 @@ window.FormStep = (function() {
             }
         });
         
-        formData.append('formstep_action', 'save');
-        formData.append('current_step', config.currentStep);
-        
-        // Save to localStorage as backup
-        const dataObj = {};
+        const data = {};
         for (let [key, value] of formData.entries()) {
-            dataObj[key] = value;
+            data[key] = value;
         }
-        localStorage.setItem('formstep_backup_' + config.currentStep, JSON.stringify(dataObj));
+        
+        localStorage.setItem(`formstep_${config.sessionPrefix}_step_${config.currentStep}`, JSON.stringify(data));
     }
     
-    // Load step data
+    // Load step data from localStorage
     function loadStepData() {
-        const saved = localStorage.getItem('formstep_backup_' + config.currentStep);
-        if (saved) {
-            const data = JSON.parse(saved);
-            
-            Object.keys(data).forEach(key => {
-                const input = document.querySelector(`[name="${key}"]`);
-                if (input) {
-                    if (input.type === 'checkbox' || input.type === 'radio') {
-                        input.checked = (input.value === data[key]);
-                    } else {
-                        input.value = data[key];
+        const savedData = localStorage.getItem(`formstep_${config.sessionPrefix}_step_${config.currentStep}`);
+        if (savedData) {
+            try {
+                const data = JSON.parse(savedData);
+                
+                Object.keys(data).forEach(key => {
+                    const input = document.querySelector(`[name="${key}"]`);
+                    if (input) {
+                        if (input.type === 'checkbox' || input.type === 'radio') {
+                            input.checked = (input.value === data[key]);
+                        } else {
+                            input.value = data[key];
+                        }
                     }
-                }
-            });
+                });
+            } catch (e) {
+                console.error('Error loading step data:', e);
+            }
         }
-    }
-    
-    // Show loading state
-    function showLoading() {
-        const content = document.querySelector('.formstep-content');
-        if (content) {
-            content.classList.add('formstep-loading');
-        }
-        
-        const buttons = document.querySelectorAll('.formstep-btn');
-        buttons.forEach(btn => {
-            btn.disabled = true;
-        });
-    }
-    
-    // Hide loading state
-    function hideLoading() {
-        const content = document.querySelector('.formstep-content');
-        if (content) {
-            content.classList.remove('formstep-loading');
-        }
-        
-        const buttons = document.querySelectorAll('.formstep-btn');
-        buttons.forEach(btn => {
-            btn.disabled = false;
-        });
-    }
-    
-    // Show notification
-    function showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `formstep-notification formstep-${type}`;
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: 6px;
-            color: white;
-            z-index: 10000;
-            animation: formstep-slide-in 0.3s ease;
-        `;
-        
-        switch(type) {
-            case 'success':
-                notification.style.backgroundColor = '#28a745';
-                break;
-            case 'error':
-                notification.style.backgroundColor = '#dc3545';
-                break;
-            case 'warning':
-                notification.style.backgroundColor = '#ffc107';
-                notification.style.color = '#212529';
-                break;
-            default:
-                notification.style.backgroundColor = '#007bff';
-        }
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
     }
     
     // Submit form
@@ -317,37 +231,68 @@ window.FormStep = (function() {
         isProcessing = true;
         showLoading();
         
-        const formData = new FormData();
-        const inputs = document.querySelectorAll('input, textarea, select');
-        
-        inputs.forEach(input => {
-            if (input.type === 'checkbox' || input.type === 'radio') {
-                if (input.checked) {
-                    formData.append(input.name, input.value);
-                }
-            } else {
-                formData.append(input.name, input.value);
-            }
-        });
-        
-        formData.append('formstep_action', action);
-        formData.append('current_step', config.currentStep);
-        
-        // Submit via page reload (traditional form)
         const form = document.createElement('form');
         form.method = 'POST';
         form.style.display = 'none';
         
-        for (let [key, value] of formData.entries()) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = value;
-            form.appendChild(input);
-        }
+        // Add action
+        const actionInput = document.createElement('input');
+        actionInput.type = 'hidden';
+        actionInput.name = 'formstep_action';
+        actionInput.value = action;
+        form.appendChild(actionInput);
+        
+        // Add all form data
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            const clone = input.cloneNode(true);
+            if (input.type === 'checkbox' || input.type === 'radio') {
+                clone.checked = input.checked;
+            }
+            form.appendChild(clone);
+        });
         
         document.body.appendChild(form);
         form.submit();
+    }
+    
+    // Show loading
+    function showLoading() {
+        const loader = document.createElement('div');
+        loader.className = 'formstep-loader';
+        loader.innerHTML = '<div class="formstep-spinner"></div>';
+        document.body.appendChild(loader);
+    }
+    
+    // Hide loading
+    function hideLoading() {
+        const loader = document.querySelector('.formstep-loader');
+        if (loader) {
+            loader.remove();
+        }
+        isProcessing = false;
+    }
+    
+    // Show notification
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `formstep-notification formstep-notification-${type}`;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        // Show notification
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // Hide after 3 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 3000);
     }
     
     // Public API
@@ -377,16 +322,6 @@ window.FormStep = (function() {
         prev: function() {
             if (isProcessing) return;
             submitForm('prev');
-        },
-        
-        goto: function(step) {
-            if (isProcessing) return;
-            
-            const formData = new FormData();
-            formData.append('formstep_action', 'goto');
-            formData.append('target_step', step);
-            
-            submitForm('goto');
         },
         
         submit: function() {

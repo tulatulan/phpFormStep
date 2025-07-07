@@ -384,6 +384,46 @@ class phpFormStep {
         
         echo '<div class="formstep-progress">';
         echo '<div class="formstep-progress-bar" style="width: ' . $percentage . '%"></div>';
+        
+        // Navigation steps
+        echo '<div class="formstep-nav-steps">';
+        for ($i = 1; $i <= $this->totalSteps; $i++) {
+            $stepConfig = $this->steps[$i] ?? [];
+            $title = $stepConfig['title'] ?? "Bước $i";
+            $isActive = ($i == $this->currentStep);
+            $isCompleted = ($i < $this->currentStep);
+            $isAccessible = ($i <= $this->currentStep); // Can only go to current or previous steps
+            
+            $classes = ['formstep-nav-step'];
+            if ($isActive) $classes[] = 'active';
+            if ($isCompleted) $classes[] = 'completed';
+            if (!$isAccessible) $classes[] = 'disabled';
+            
+            $classString = implode(' ', $classes);
+            
+            if ($isAccessible) {
+                echo '<button type="button" class="' . $classString . '" onclick="FormStep.goToStep(' . $i . ')" title="' . htmlspecialchars($title) . '">';
+            } else {
+                echo '<span class="' . $classString . '" title="' . htmlspecialchars($title) . '">';
+            }
+            
+            echo '<span class="formstep-nav-step-number">';
+            if ($isCompleted) {
+                echo '<i class="formstep-check-icon">✓</i>';
+            } else {
+                echo $i;
+            }
+            echo '</span>';
+            echo '<span class="formstep-nav-step-title">' . htmlspecialchars($title) . '</span>';
+            
+            if ($isAccessible) {
+                echo '</button>';
+            } else {
+                echo '</span>';
+            }
+        }
+        echo '</div>';
+        
         echo '<span class="formstep-progress-text">Bước ' . $this->currentStep . '/' . $this->totalSteps . '</span>';
         echo '</div>';
     }
