@@ -124,9 +124,16 @@ class phpFormStep {
         $stepConfig = $this->steps[$this->currentStep] ?? [];
         $buttonNext = $stepConfig['buttonNext'] ?? [];
         
+        if ($this->debug) {
+            error_log("DEBUG: Processing next step - Current: " . $this->currentStep);
+        }
+        
         // Check if validation is required
         if ($buttonNext['required'] ?? false) {
             if (!$this->validateStep($this->currentStep)) {
+                if ($this->debug) {
+                    error_log("DEBUG: Validation failed for step " . $this->currentStep);
+                }
                 return;
             }
         }
@@ -134,6 +141,9 @@ class phpFormStep {
         // Check if submit before continue
         if ($buttonNext['submitBeforeContinue'] ?? false) {
             if (!$this->submitStepData($this->currentStep)) {
+                if ($this->debug) {
+                    error_log("DEBUG: Submit failed for step " . $this->currentStep);
+                }
                 return;
             }
         }
@@ -145,6 +155,10 @@ class phpFormStep {
         if ($this->currentStep < $this->totalSteps) {
             $this->currentStep++;
             $_SESSION[$this->sessionPrefix . 'current_step'] = $this->currentStep;
+            
+            if ($this->debug) {
+                error_log("DEBUG: Moved to step " . $this->currentStep);
+            }
         }
     }
     
@@ -266,14 +280,22 @@ class phpFormStep {
         } else {
             // Local file - include
             $_POST[$inputKey] = $this->currentStep;
-            $result = include $url;
             
-            if ($result === false) {
+            // Capture output to prevent interference
+            ob_start();
+            $result = include $url;
+            ob_end_clean();
+            
+            // If no explicit return, assume success
+            if ($result === 1 || $result === true) {
+                return true;
+            } elseif ($result === false) {
                 $this->errors[] = 'Handler execution failed';
                 return false;
+            } else {
+                // No explicit return from include, assume success
+                return true;
             }
-            
-            return true;
         }
     }
     
@@ -334,9 +356,6 @@ class phpFormStep {
         // Start output buffering
         ob_start();
         
-        // Render CSS
-        $this->renderCSS();
-        
         // Render progress bar
         $this->renderProgressBar();
         
@@ -345,9 +364,6 @@ class phpFormStep {
         
         // Render navigation
         $this->renderNavigation();
-        
-        // Render JavaScript
-        $this->renderJavaScript();
         
         // Render debug info
         if ($this->debug) {
@@ -360,12 +376,6 @@ class phpFormStep {
     /**
      * Render CSS styles
      */
-    private function renderCSS() {
-        echo '<style>';
-        include __DIR__ . '/css/formstep.css';
-        echo '</style>';
-    }
-    
     /**
      * Render progress bar
      */
@@ -460,18 +470,6 @@ class phpFormStep {
     /**
      * Render JavaScript
      */
-    private function renderJavaScript() {
-        echo '<script>';
-        echo 'var FormStepConfig = ' . json_encode([
-            'currentStep' => $this->currentStep,
-            'totalSteps' => $this->totalSteps,
-            'mode' => $this->mode,
-            'steps' => $this->steps
-        ]) . ';';
-        include __DIR__ . '/js/formstep.js';
-        echo '</script>';
-    }
-    
     /**
      * Render debug information
      */
@@ -527,5 +525,18 @@ class phpFormStep {
      */
     public function isCompleted() {
         return $this->currentStep >= $this->totalSteps;
+    }
+    
+    /**
+     * Get JavaScript configuration
+     */
+    public function getJavaScriptConfig() {
+        return json_encode([
+            'currentStep' => $this->currentStep,
+            'totalSteps' => $this->totalSteps,
+            'mode' => $this->mode,
+            'steps' => $this->steps,
+            'sessionPrefix' => $this->sessionPrefix
+        ]);
     }
 }

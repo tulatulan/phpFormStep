@@ -15,17 +15,34 @@ phpFormStep v2.0 là thư viện PHP chuyên nghiệp để tạo form nhiều b
 ## 📦 Cài đặt
 
 ```bash
-# Copy thư mục dist vào project của bạn
-cp -r dist/ your-project/phpFormStep/
+# Copy file chính vào project của bạn
+cp dist/phpFormStep.php your-project/
+
+# Tùy chọn: Copy CSS/JS mẫu từ examples (hoặc tạo CSS/JS riêng)
+cp examples/assets/css/formstep.css your-project/
+cp examples/assets/js/formstep.js your-project/
 ```
 
 ## 🔧 Cách sử dụng cơ bản
 
-### 1. Include thư viện
+### 1. Include thư viện (chỉ PHP)
 
 ```php
 <?php
-require_once 'phpFormStep/phpFormStep.php';
+require_once 'phpFormStep.php';
+```
+
+### 2. Include CSS/JS (tùy chọn)
+
+```html
+<!-- Sử dụng CSS mẫu hoặc tạo CSS riêng -->
+<link rel="stylesheet" href="formstep.css">
+
+<!-- JavaScript cơ bản -->
+<script>
+    var FormStepConfig = <?= $formStep->getJavaScriptConfig() ?>;
+</script>
+<script src="formstep.js"></script>
 ```
 
 ### 2. Cấu hình form
@@ -211,7 +228,33 @@ Bật debug mode để xem thông tin chi tiết:
 $config['debug'] = true;
 ```
 
-## 📞 Hỗ trợ
+## � Cấu trúc Project
+
+```
+phpFormStep-standalone/
+├── dist/
+│   └── phpFormStep.php          # Library core (chỉ PHP)
+├── examples/
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── formstep.css     # CSS mẫu cho người dùng
+│   │   └── js/
+│   │       └── formstep.js      # JavaScript mẫu cho người dùng
+│   ├── handlers/                # Handler examples
+│   ├── views/                   # View examples
+│   └── demo-v2.php             # Demo hoàn chỉnh
+├── composer.json
+├── README.md
+└── LICENSE
+```
+
+**Lưu ý quan trọng:**
+- **`dist/`** chỉ chứa library core PHP thuần túy
+- **`examples/assets/`** chứa CSS/JS mẫu cho người dùng
+- Người dùng có thể copy CSS/JS từ examples hoặc tạo riêng
+- Library không tự động include CSS/JS, người dùng phải tự include
+
+## �📞 Hỗ trợ
 
 - **Email**: support@example.com
 - **Documentation**: [Link docs]

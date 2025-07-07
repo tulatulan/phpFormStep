@@ -3,6 +3,11 @@
  * Handler cho Step 3 - Xử lý sở thích và tùy chọn
  */
 
+// Start session if not started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Kiểm tra có phải request từ form step không
 if (!isset($_POST['step3'])) {
     http_response_code(400);

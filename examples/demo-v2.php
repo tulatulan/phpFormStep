@@ -186,6 +186,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>phpFormStep v2.0 - Professional Demo</title>
+    <link rel="stylesheet" href="assets/css/formstep.css">
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -264,5 +265,10 @@ try {
             <a href="?">Create Mode</a>
         </div>
     </div>
+    
+    <script>
+        var FormStepConfig = <?= $formStep->getJavaScriptConfig() ?>;
+    </script>
+    <script src="assets/js/formstep.js"></script>
 </body>
 </html>
